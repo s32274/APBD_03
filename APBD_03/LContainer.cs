@@ -9,9 +9,8 @@ public class LContainer : Container, IHazardNotifier
 
     private bool isLoadDangerous = false;
 
-    public LContainer()
+    public LContainer() : base(ContainerType.L)
     {
-        SetType(ContainerType.L);
     }
     
     public override void Load(double newLoad)
@@ -21,7 +20,7 @@ public class LContainer : Container, IHazardNotifier
             if (GetLoadMass() + newLoad > 0.5 * GetMaxLoad())
             {
                 //throw new OverfillException("Cannot load more than max load");
-                NotifyHazard(GetSerialId(), "contains dangerous load, cannot load more than 0.5 max load");
+                NotifyHazard("contains dangerous load, cannot load more than 0.5 max load");
             }
         }
         else
@@ -29,12 +28,12 @@ public class LContainer : Container, IHazardNotifier
             if (GetLoadMass() + newLoad > 0.9 * GetMaxLoad())
             {
                 //throw new OverfillException("Cannot load more than max load");
-                NotifyHazard(GetSerialId(), "contains safe load, but cannot load more than 0.9 max load");
+                NotifyHazard("contains safe load, but cannot load more than 0.9 max load");
             }
         }
     }
 
-    public string NotifyHazard(string hazardId, string message)
+    public string NotifyHazard(string message)
     {
         return "[" + GetSerialId() + "]: " + message;
     }

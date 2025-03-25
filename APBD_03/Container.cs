@@ -2,7 +2,7 @@ namespace APBD_03;
 
 public abstract class Container
 {
-    private ContainerType _containerType; // chłodnicze, na płyny, na gaz (C, L, G)
+    private ContainerType containerType; // chłodnicze, na płyny, na gaz (C, L, G)
     private double loadMass;
     private double height;
     private double ownMass;
@@ -20,14 +20,15 @@ public abstract class Container
         this.maxLoad = maxLoad;
     }
 
-    public Container()
+    public Container(ContainerType containerType)
     {
+        this.containerType = containerType;
         serialID = GenerateSerialID();
     }
 
     private string GenerateSerialID()
     {
-        return "KON-" + _containerType + "-" + System.Guid.NewGuid();
+        return "KON-" + containerType + "-" + System.Guid.NewGuid();
     }
 
     public virtual double Unload()
@@ -60,7 +61,7 @@ public abstract class Container
 
     public void SetType(ContainerType containerType)
     {
-        this._containerType = containerType;
+        this.containerType = containerType;
     }
 
     public void SetLoadMass(double loadMass)
